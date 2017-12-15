@@ -5,10 +5,8 @@
  */
 package ec.edu.espe.users.module.quipux.service;
 
-import com.sun.xml.internal.ws.wsdl.writer.UsingAddressing;
 import java.sql.*;
 import ec.edu.espe.users.module.quipux.model.usuario;
-import static java.lang.Class.forName;
 import ec.edu.espe.users.module.quipux.util.conexion;
 import java.util.ArrayList;
 import java.util.List;
