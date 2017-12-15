@@ -6,8 +6,8 @@
 package ec.edu.espe.users.module.quipux.service;
 
 import java.sql.*;
-import ec.edu.espe.users.module.quipux.model.dependencia;
-import ec.edu.espe.users.module.quipux.model.usuario;
+import ec.edu.espe.users.module.quipux.model.Dependencia;
+import ec.edu.espe.users.module.quipux.model.Usuario;
 import ec.edu.espe.users.module.quipux.util.conexion;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author marlo
  */
-public class dependenciaService {
+public class DependenciaService {
 
     // sentencia SQL
     private PreparedStatement consultaDependencia = null;
@@ -35,7 +35,7 @@ public class dependenciaService {
             rs = consultaDependencia.executeQuery();
             resultado = new ArrayList();
             while (rs.next()) {
-                resultado.add(new dependencia(
+                resultado.add(new Dependencia(
                         rs.getString("codigo"),
                         rs.getString("nombre_departamento"),
                         rs.getString("codigo_padre_departamento")

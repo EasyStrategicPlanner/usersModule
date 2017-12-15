@@ -9,15 +9,15 @@ package ec.edu.espe.users.module.quipux.model;
  *
  * @author marlo
  */
-public class dependencia {
+public class Dependencia {
     private String codigo;
     private String nombre_departamento;
     private String codigo_padre_departamento;
 
-    public dependencia() {
+    public Dependencia() {
     }
 
-    public dependencia(String codigo, String nombre_departamento, String codigo_padre_departamento) {
+    public Dependencia(String codigo, String nombre_departamento, String codigo_padre_departamento) {
         this.codigo = codigo;
         this.nombre_departamento = nombre_departamento;
         this.codigo_padre_departamento = codigo_padre_departamento;

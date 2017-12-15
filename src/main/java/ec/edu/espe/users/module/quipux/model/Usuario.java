@@ -9,7 +9,7 @@ package ec.edu.espe.users.module.quipux.model;
  *
  * @author marlo
  */
-public class usuario {
+public class Usuario {
 
 private String ID;
 private String email;
@@ -20,10 +20,10 @@ private String cargo;
 private String cargo_tipo;
 private int dependencias_codigo;
 
-    public usuario() {
+    public Usuario() {
     }
 
-    public usuario(String ID, String email, int cedula, String nombre, String apellido, String cargo, String cargo_tipo, int dependencias_codigo) {
+    public Usuario(String ID, String email, int cedula, String nombre, String apellido, String cargo, String cargo_tipo, int dependencias_codigo) {
         this.ID = ID;
         this.email = email;
         this.cedula = cedula;
