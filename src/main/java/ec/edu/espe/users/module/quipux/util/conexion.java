@@ -16,8 +16,8 @@ public class conexion {
         //Ponemos  el Driver/seguido del nombre del servidor/Y Nombre de BD
     private  String url = "jdbc:postgresql://10.1.1.18/GI_QUIPUX";
     //El usuario y contraseña
-    private String user = "postgre";
-    private String pass = "postgre";
+    private String user = "postgres";
+    private String pass = "postgres";
     private Connection cn;
      
     public Connection getConexion() {

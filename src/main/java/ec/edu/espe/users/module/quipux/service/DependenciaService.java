@@ -26,7 +26,7 @@ public class DependenciaService {
     ResultSet rs = null;
     // constructor de la clase que inicializa la sentencia SQL
 
-    public List FindByCedula(int codigo) {
+    public List FindByCodigo(int codigo) {
         List resultado = null;
         try {
             consultaDependencia = cn.prepareStatement("select depe_codi, depe_nomb, depe_codi_padre\n"
@@ -36,9 +36,9 @@ public class DependenciaService {
             resultado = new ArrayList();
             while (rs.next()) {
                 resultado.add(new Dependencia(
-                        rs.getString("codigo"),
-                        rs.getString("nombre_departamento"),
-                        rs.getString("codigo_padre_departamento")
+                        rs.getInt("depe_codi"),
+                        rs.getString("depe_nomb"),
+                        rs.getInt("depe_codi_padre")
                 ));
             }
 

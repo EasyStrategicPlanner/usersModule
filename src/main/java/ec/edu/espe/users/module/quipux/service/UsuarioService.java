@@ -27,34 +27,24 @@ public class UsuarioService {
     public UsuarioService() {
     }
     
-    public UsuarioService(int cedula) {
-        try {
-            consultaEmpleado = cn.prepareStatement("select usua_login,usua_email,usua_cedula, usua_nomb, usua_apellido,usua_cargo,cargo_tipo,depe_codi\n"
-                    + "from usuarios, dependencia\n"
-                    + "where usua_cedula = '" + cedula + "'");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List FindByCedula(int cedula) {
+    public List FindByCedula(String cedula) {
         List resultado = null;
         try {
             consultaEmpleado = cn.prepareStatement("select usua_login,usua_email,usua_cedula, usua_nomb, usua_apellido,usua_cargo,cargo_tipo,depe_codi\n"
-                    + "from usuarios, dependencia\n"
+                    + "from usuarios\n"
                     + "where usua_cedula = '" + cedula + "'");
             rs = consultaEmpleado.executeQuery();
             resultado = new ArrayList();
             while (rs.next()) {
                 resultado.add(new Usuario(
-                        rs.getString("ID"),
-                        rs.getString("email"),
-                        rs.getInt("cedula"),
-                        rs.getString("nombre"),
-                        rs.getString("apellido"),
-                        rs.getString("cargo"),
+                        rs.getString("usua_login"),
+                        rs.getString("usua_email"),
+                        rs.getString("usua_cedula"),
+                        rs.getString("usua_nomb"),
+                        rs.getString("usua_apellido"),
+                        rs.getString("usua_cargo"),
                         rs.getString("cargo_tipo"),
-                        rs.getInt("dependencias_codigo")
+                        rs.getInt("depe_codi")
                 ));
             }
 
@@ -68,20 +58,20 @@ public class UsuarioService {
         List resultado = null;
         try {
             consultaEmpleado = cn.prepareStatement("select usua_login,usua_email,usua_cedula, usua_nomb, usua_apellido,usua_cargo,cargo_tipo,depe_codi\n"
-                    + "from usuarios, dependencia\n"
-                    + "where usua_cedula = '" + ID + "'");
+                    + "from usuarios\n"
+                    + "where usua_login = '" + ID + "'");
             rs = consultaEmpleado.executeQuery();
             resultado = new ArrayList();
             while (rs.next()) {
                 resultado.add(new Usuario(
-                        rs.getString("ID"),
-                        rs.getString("email"),
-                        rs.getInt("cedula"),
-                        rs.getString("nombre"),
-                        rs.getString("apellido"),
-                        rs.getString("cargo"),
+                        rs.getString("usua_login"),
+                        rs.getString("usua_email"),
+                        rs.getString("usua_cedula"),
+                        rs.getString("usua_nomb"),
+                        rs.getString("usua_apellido"),
+                        rs.getString("usua_cargo"),
                         rs.getString("cargo_tipo"),
-                        rs.getInt("dependencias_codigo")
+                        rs.getInt("depe_codi")
                 ));
             }
 
@@ -91,4 +81,61 @@ public class UsuarioService {
         return resultado;
     }
 
+        public List FindByBoss(int jefe) {
+        List resultado = null;
+        try {
+            consultaEmpleado = cn.prepareStatement("select usua_login,usua_email,usua_cedula, usua_nomb, usua_apellido,usua_cargo,cargo_tipo,depe_codi\n"
+                    + "from usuarios\n"
+                    + "where cargo_tipo =" + jefe);
+            rs = consultaEmpleado.executeQuery();
+            resultado = new ArrayList();
+            while (rs.next()) {
+                resultado.add(new Usuario(
+                        rs.getString("usua_login"),
+                        rs.getString("usua_email"),
+                        rs.getString("usua_cedula"),
+                        rs.getString("usua_nomb"),
+                        rs.getString("usua_apellido"),
+                        rs.getString("usua_cargo"),
+                        rs.getString("cargo_tipo"),
+                        rs.getInt("depe_codi")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+        
+        public List FindByemplo(String Idjefe) {
+        List resultado = null;
+        try {
+            consultaEmpleado = cn.prepareStatement("select usua_login,usua_email,usua_cedula, usua_nomb, usua_apellido,usua_cargo, depe_codi,cargo_tipo\n" +
+                                                    "from usuarios\n" +
+                                                    "where  depe_codi in(select depe_codi\n" +
+                                                    "from usuarios\n" +
+                                                    "where cargo_tipo = 1\n" +
+                                                    "and usua_login ='"+Idjefe+"'\n" +
+                                                    ") and cargo_tipo = 0;");
+            rs = consultaEmpleado.executeQuery();
+            resultado = new ArrayList();
+            while (rs.next()) {
+                resultado.add(new Usuario(
+                        rs.getString("usua_login"),
+                        rs.getString("usua_email"),
+                        rs.getString("usua_cedula"),
+                        rs.getString("usua_nomb"),
+                        rs.getString("usua_apellido"),
+                        rs.getString("usua_cargo"),
+                        rs.getString("cargo_tipo"),
+                        rs.getInt("depe_codi")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
 }

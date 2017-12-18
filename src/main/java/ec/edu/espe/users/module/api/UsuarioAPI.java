@@ -9,6 +9,9 @@ package ec.edu.espe.users.module.api;
 import com.google.gson.Gson;
 import ec.edu.espe.users.module.quipux.model.Usuario;
 import ec.edu.espe.users.module.quipux.service.UsuarioService;
+import ec.edu.espe.users.module.quipux.model.Dependencia;
+import ec.edu.espe.users.module.quipux.service.DependenciaService;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -25,74 +28,134 @@ import javax.ws.rs.core.Response;
 @Path("/us/")
 public class UsuarioAPI {
     
-    @POST
-    @Path("/usuario")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response transaction(String json) {
+   
+    
+////busqueda por cedula    
+    @GET
+    @Path("/usuario/cedula/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findCi(@PathParam("search") String search) {
         String result = "";
-        Gson object = new Gson();
+        String  patter = search;
         Usuario usuario = new Usuario();
         UsuarioService service = new UsuarioService();
-        Boolean exito = Boolean.FALSE;
-        try {
-//            usuario = object.fromJson(json, Usuario.class);
-//            if (usuario.getCode().equals("INSERT")) {
-//                exito = service.insert(usuario);
-//            } else if (usuario.getCode().equals("DELETE")) {
-//                exito = service.delete(usuario);
-//            } else {
-//                exito = service.update(usuario);
-//            }
-//            if (exito) {
-//                result = "{\"state\" : \"1\"}";
-//            } else {
-//                result = "{\"state\" : \"0\"}";
-//            }
-        } catch (Exception e) {
-            System.out.println(">> post usuario : " + e.getMessage());
+        Gson json = new Gson();
+        List re=service.FindByCedula(search);
+       if (re.size() != 0) {
+           try {
+               result = json.toJson(re);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           
+        } else {
             result = "{\"state\" : \"0\"}";
         }
         // return HTTP response 200 in case of success
-        return Response.status(200).entity(result).build();
+        return Response.status(200).entity("hola "+result).build();
     }
-
-    @GET
-    @Path("/usuario/{search}")
+// busqueda por ID ////////////
+    
+        @GET
+    @Path("/usuario/id/{search}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response query(@PathParam("search") String search) {
+    public Response findID(@PathParam("search") String search) {
         String result = "";
-        String[] patter = search.split("=");
+        String  patter = search;
         Usuario usuario = new Usuario();
         UsuarioService service = new UsuarioService();
-//        Gson json = new Gson();
-//        if (patter.length == 2) {
-//            if (patter[0].equals("username")) {
-//                usuario = service.findByUsername(patter[1]);
-//            } else if (patter[0].equals("code")) {
-//                usuario = service.findByCode(patter[1]);
-//            }
-//        }
-//        if (usuario.getCode() != null) {
-//            result = json.toJson(usuario, Usuario.class);
-//        } else {
-//            result = "{\"state\" : \"0\"}";
-//        }
+        Gson json = new Gson();
+        List re=service.FindById(search);
+       if (re.size() != 0) {
+           try {
+               result = json.toJson(re);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           
+        } else {
+            result = "{\"state\" : \"0\"}";
+        }
         // return HTTP response 200 in case of success
-        return Response.status(200).entity(result).build();
+        return Response.status(200).entity("hola "+result).build();
+    }
+////////////////////////////    
+// busqueda por codigo de departamento
+    @GET
+    @Path("/usuario/code/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findcode(@PathParam("search") int search) {
+        String result = "";
+        int  patter = search;
+        Dependencia dependencia = new Dependencia();
+        DependenciaService service = new DependenciaService();
+        Gson json = new Gson();
+        List re=service.FindByCodigo(search);
+       if (re.size() != 0) {
+           try {
+               result = json.toJson(re);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           
+        } else {
+            result = "{\"state\" : \"0\"}";
+        }
+        // return HTTP response 200 in case of success
+        return Response.status(200).entity("hola "+result).build();
     }
 
+///////////////////////////////////////    
+// jefes del departamento
     @GET
-    @Path("/usuarios")
+    @Path("/usuario/jefes/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list() {
-        String result = "{\"state\" : \"0\"}";
+    public Response findBoss() {
+        String result = "";
+        int search = 1;
+        int  patter = search;
+        Usuario usuario = new Usuario();
         UsuarioService service = new UsuarioService();
-//        List<Usuario> usuarios = service.list();
-//        Gson objectList = new Gson();
-//        if (!usuarios.isEmpty()) {
-//            result = objectList.toJson(usuarios);
-//        }
+        Gson json = new Gson();
+        List re=service.FindByBoss(search);
+       if (re.size() != 0) {
+           try {
+               result = json.toJson(re);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           
+        } else {
+            result = "{\"state\" : \"0\"}";
+        }
         // return HTTP response 200 in case of success
-        return Response.status(200).entity(result).build();
+        return Response.status(200).entity("hola "+result).build();
     }
+///////////////////////////////////////
+/// Empleados
+    @GET
+    @Path("/usuario/empleados/{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findemplo(@PathParam("search") String search) {
+        String result = "";
+        
+        String  patter = search;
+        Usuario usuario = new Usuario();
+        UsuarioService service = new UsuarioService();
+        Gson json = new Gson();
+        List re=service.FindByemplo(search);
+       if (re.size() != 0) {
+           try {
+               result = json.toJson(re);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           
+        } else {
+            result = "{\"state\" : \"0\"}";
+        }
+        // return HTTP response 200 in case of success
+        return Response.status(200).entity("hola "+result).build();
+    }
+/////////////////
 }

@@ -13,7 +13,7 @@ public class Usuario {
 
 private String ID;
 private String email;
-private int cedula;
+private String cedula;
 private String nombre;
 private String apellido;
 private String cargo;
@@ -23,7 +23,7 @@ private int dependencias_codigo;
     public Usuario() {
     }
 
-    public Usuario(String ID, String email, int cedula, String nombre, String apellido, String cargo, String cargo_tipo, int dependencias_codigo) {
+    public Usuario(String ID, String email, String cedula, String nombre, String apellido, String cargo, String cargo_tipo, int dependencias_codigo) {
         this.ID = ID;
         this.email = email;
         this.cedula = cedula;
@@ -50,11 +50,11 @@ private int dependencias_codigo;
         this.email = email;
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 
