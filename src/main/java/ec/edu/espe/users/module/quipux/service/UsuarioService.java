@@ -117,7 +117,7 @@ public class UsuarioService {
                                                     "from usuarios\n" +
                                                     "where cargo_tipo = 1\n" +
                                                     "and usua_login ='"+Idjefe+"'\n" +
-                                                    ") and cargo_tipo = 0;");
+                                                    ") and cargo_tipo != 1;");
             rs = consultaEmpleado.executeQuery();
             resultado = new ArrayList();
             while (rs.next()) {
